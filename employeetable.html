@@ -1,0 +1,77 @@
+<!Doctype html>
+<html lang="en">
+	<head>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">	</script>
+		<link rel="stylesheet" href="css/empDetails.css">
+		<title>ClimbHigh Ladders</title>
+		<meta charset="utf-8">
+		
+		<style>
+table {
+  table-layout: fixed;
+}
+		
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+
+th{
+color:blue;
+}
+</style>
+		
+	<script>
+		$(document).ready(function(){
+		
+		
+	
+	$.ajax({
+		type:"Get",
+		url:"http://12.42.204.30:7907/sample.json",
+		dataType:"text",
+		success: function(data){
+		console.log("data is "+data);
+		const obj = JSON.parse(data);
+		//console.log(obj);
+		
+		$("#empTable").append("<tr><th>Name</th><th>Title</th><th>Department</th><th>Bio</th></tr>");
+		for(var i=0;i<obj.length;i++){
+			var objectArray=obj[i];
+			
+			$("#empTable").append("<tr>");
+			for (var key in objectArray) {
+			//document.writeln(key+" : ",objectArray[key]);
+				//document.write("<br>");
+				$("#empTable").append("<td>"+objectArray[key]+"</td>");
+			console.log("key " + key + " has value " + objectArray[key]+"\n");
+			}
+			$("#empTable").append("</tr>");
+			//document.write("<br>");
+		}
+			//alert(data);
+		},
+		error: function(xhr, status, error) {
+		
+		console.log(xhr.responseText);
+		}
+	});
+
+	
+});
+		</script>
+		
+	</head>
+	<body>	
+		<p id="heading">Employee Details</p>
+		
+		<table style="width:100%" id="empTable">
+
+  
+</table>
+	
+	</body>
+</html>
